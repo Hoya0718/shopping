@@ -10,11 +10,10 @@
 </head>
 <body>
 <div th:replace="~{nav.html::navbar}"/>
-  <h1>공지사항</h1>
-  <div th:each = "i : ${announcements}">
-    <ul>
-      <li><p th:text="${i.title}"/><p th:text="${i.date}"/></li>
-    </ul>
-  </div>
+  <form action="/item" method="POST">
+    <input type="text" name="title" placeholder="상품명을 작성"/>
+    <input type="text" name="price" placeholder="가격을 제시"/>
+    <button type="submit">전송</button>
+  </form>
 </body>
 </html>

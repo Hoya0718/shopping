@@ -10,11 +10,11 @@
 </head>
 <body>
 <div th:replace="~{nav.html::navbar}"/>
-  <h1>공지사항</h1>
-  <div th:each = "i : ${announcements}">
-    <ul>
-      <li><p th:text="${i.title}"/><p th:text="${i.date}"/></li>
-    </ul>
-  </div>
+<div class="detail">
+    <h4>상세페이지</h4>
+    <img src="https://placehold.co/300">
+    <h4 th:text="${title}"></h4>
+    <p th:text="${price}"></p>
+</div>
 </body>
 </html>
