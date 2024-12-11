@@ -16,6 +16,29 @@
     <h4 th:text="${title}"></h4>
     <p th:text="${price}"></p>
     <a th:href="@{/modification/{id}(id=${id})}">수정하기</a>
+    <br/>
+    <button id="deleteBtn">삭제</button>
 </div>
+
+<script th:inline="javascript">  //html 파일 로드시 1회 실행
+var id = [[${id}]];
+
+window.onload = function () {
+
+    const deleteBtn = document.getElementById('deleteBtn');
+
+    deleteBtn.addEventListener('click', function () {
+        fetch(`/detail/${id}`, {
+            method: "DELETE"
+        })
+            .then(r => r.text())
+            .then(() => {
+                window.location.href="/list";
+            })
+    });
+};
+</script>
+
 </body>
 </html>
+

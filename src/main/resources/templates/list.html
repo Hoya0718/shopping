@@ -9,6 +9,11 @@
 <body>
 <div th:replace="~{nav.html::navbar}"/>
   <h1>list페이지</h1>
+<!-- items가 비어 있지 않으면 카드 표시 -->
+<div th:if="${#lists.isEmpty(items)}">
+  <p>No items available</p>
+</div>
+
 <div class="card" th:each="i : ${items}">
   <img src="https://placehold.co/300">
   <div>
@@ -17,6 +22,7 @@
   </div>
 </div>
 
+<!--
   <div class="card">
     <img src="https://placehold.co/300">
     <div>
@@ -40,5 +46,7 @@
       <p th:text="${items.get(2).price}"></p>
     </div>
   </div>
+  -->
+
 </body>
 </html>

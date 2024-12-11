@@ -1,6 +1,7 @@
 package com.nayo.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,9 @@ public class ItemController {
 
     @GetMapping("/list")
     public String list(Model model) {
+        System.out.println("실행 전");
         List<Item> result = itemService.findAll();
+        System.out.println("실행 후"+result.size());
         model.addAttribute("items", result);
         return "list.html";
     }
@@ -68,8 +71,22 @@ public class ItemController {
     }
 
     @PutMapping("/modification/{id}")
-    public String modificati1on(@ModelAttribute Item item) {
+    public String modification(@ModelAttribute Item item) {
         itemService.saveItem(item);
         return "redirect:/list";
+    }
+
+    /* 그냥 id값이 있다면 그건 update문으로 변한다.
+    @PostMapping("/modification/{id}")
+    public String modification(@ModelAttribute Item item) {
+        itemService.saveItem(item);
+        return "redirect:/list";
+    }
+     */
+
+    @DeleteMapping("/detail/{id}")
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        itemService.deleteById(id);
+        return ResponseEntity.status(200).body("삭제완료");
     }
 }

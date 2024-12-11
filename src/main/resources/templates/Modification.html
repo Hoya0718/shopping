@@ -13,13 +13,20 @@
 <div class="detail">
     <h4>물건 글 수정하기</h4>
     <img src="https://placehold.co/300">
-    <form action="/modification/complete" method="POST">
+    <form action="/modification/{id}(id=${id})" method="POST">
         <input type="hidden" name="_method" value="PUT"/> <!-- 실제 PUT 메서드 전송 -->
         <input type="hidden" name="id" th:value="${id}"/>
         <input type="text" name="title" th:value="${title}"/>
         <input type="text" name="price" th:value="${price}"/>
         <button type="submit">수정하기</button>
     </form>
+    <!-- 더 쉬운 방법 POST로 보내는 것
+    <form action="/modification/{id}(id=${id})" method="POST">
+        <input type="hidden" name="id" th:value="${id}"/>
+        <input type="text" name="title" th:value="${title}"/>
+        <input type="text" name="price" th:value="${price}"/>
+    </form>
+    -->
 </div>
 </body>
 </html>
