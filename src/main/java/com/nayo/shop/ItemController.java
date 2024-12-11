@@ -44,11 +44,32 @@ public class ItemController {
         Optional<Item> result = itemService.findById(id);
 
         if (result.isPresent()) { //Optional은 if문으로 꼭 해줘야된다. result에 결과가 있을 때
+            model.addAttribute("id", result.get().getId());
             model.addAttribute("title", result.get().getTitle());
             model.addAttribute("price", result.get().getPrice());
             return "detail.html";
         } else {
             return "redirect:/list";
         }
+    }
+
+    @GetMapping("/modification/{id}")
+    public String modification(@PathVariable Integer id, Model model) {
+        Optional<Item> result = itemService.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("id", result.get().getId());
+            model.addAttribute("title", result.get().getTitle());
+            model.addAttribute("price", result.get().getPrice());
+            return "modification.html";
+        }
+        else{
+            return "redirect:/list";
+        }
+    }
+
+    @PutMapping("/modification/{id}")
+    public String modificati1on(@ModelAttribute Item item) {
+        itemService.saveItem(item);
+        return "redirect:/list";
     }
 }

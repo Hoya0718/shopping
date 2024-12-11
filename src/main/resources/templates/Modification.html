@@ -11,11 +11,15 @@
 <body>
 <div th:replace="~{nav.html::navbar}"/>
 <div class="detail">
-    <h4>상세페이지</h4>
+    <h4>물건 글 수정하기</h4>
     <img src="https://placehold.co/300">
-    <h4 th:text="${title}"></h4>
-    <p th:text="${price}"></p>
-    <a th:href="@{/modification/{id}(id=${id})}">수정하기</a>
+    <form action="/modification/complete" method="POST">
+        <input type="hidden" name="_method" value="PUT"/> <!-- 실제 PUT 메서드 전송 -->
+        <input type="hidden" name="id" th:value="${id}"/>
+        <input type="text" name="title" th:value="${title}"/>
+        <input type="text" name="price" th:value="${price}"/>
+        <button type="submit">수정하기</button>
+    </form>
 </div>
 </body>
 </html>

@@ -18,9 +18,10 @@ public class ItemService {
         return result;
     }
 
-    //Item 등록시 저장
+    //Item 등록시 저장 또는 수정
     public void saveItem(Item item){
         itemRepository.save(item);
+        System.out.println("서비스" + item);
     }
 
     //Item 상세 정보 불러오기
