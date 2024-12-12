@@ -16,6 +16,7 @@ public class Item {
     private String title;
     @Column()//db에 바로 반영되지 않는다. 처음부터 설정을 잘하면 좋다. 테이블 삭제하고 다시 만드는게 빠름
     private Integer price;
+    private String username;
 }
 
 //JPA로 데이터 입출력 3-step

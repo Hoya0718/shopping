@@ -27,10 +27,14 @@ public class SecurityConfig {
                 authorize.requestMatchers("/**").permitAll()
         );//특정 페이지 로그인검사 유무 설정 가능
         http.formLogin((formLogin) -> formLogin.loginPage("/login") //폼으로 로그인 하겠다.
-                .defaultSuccessUrl("/") //로그인 성공시 이동할 url
+                .defaultSuccessUrl("/main") //로그인 성공시 이동할 url
                 .failureUrl("/fail") //실패 시 이동 할 url null이면 /login?error로 이동
         );
-        http.logout(logout -> logout.logoutUrl("/logout"));
+        http.logout(logout -> logout.logoutUrl("/logout")
+                .logoutSuccessUrl("/") //로그아웃 성공 후 리다이렉트
+                .invalidateHttpSession(true) //세션 무효화
+                .clearAuthentication(true) // 인증 정보 삭제
+        );
         return http.build();
     }
 }

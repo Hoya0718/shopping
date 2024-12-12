@@ -1,6 +1,7 @@
 package com.nayo.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,16 @@ public class ItemService {
     }
 
     //Item 등록시 저장 또는 수정
-    public void saveItem(Item item){
+    public void saveItem(ItemDTO itemDTO, Authentication auth){
+        Item item = new Item();
+        if(itemDTO.getId() != null){
+            item.setId(itemDTO.getId());
+        }
+
+        item.setTitle(itemDTO.getTitle());
+        item.setPrice(itemDTO.getPrice());
+        item.setUsername(auth.getName());
+        System.out.println("서비스"+ item);
         itemRepository.save(item);
     }
 

@@ -17,26 +17,32 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/register")
-    String join() {
+    String join(Authentication auth) {
+        if(auth != null) {
+            return "redirect:/main";
+        }
         return "register.html";
     }
 
     @PostMapping("/member")
     String addMember(@ModelAttribute MemberDTO memberDTO) {
         memberService.save(memberDTO);
-        return "redirect:/list";
+        return "redirect:/main";
     }
 
     @GetMapping("/login")
-    String login(){
-        return "/login.html";
+    String login(Authentication auth){
+        if(auth != null){
+            return "redirect:/main";
+        }
+            return "/login.html";
     }
 
     @GetMapping("/my-page")
     String mypage(Authentication auth) { //유저 정보 볼수있는 오브젝트
-        System.out.println(auth);
-        System.out.println(auth.getName());
-        System.out.println(auth.isAuthenticated());
+        //System.out.println(auth);
+        //System.out.println(auth.getName());
+        //System.out.println(auth.isAuthenticated()); //auth가 Authentication의 시큐리티 객체인지 확인
         //System.out.println(auth.getAuthorities()); 권한 확인
         //System.out.println(auth.getAuthorities().contains(new SimpleGrantedAuthority("일반유저"))); 일반유저인지 확인
         return "mypage.html";

@@ -14,10 +14,16 @@
     <h4>상세페이지</h4>
     <img src="https://placehold.co/300">
     <h4 th:text="${title}"></h4>
-    <p th:text="${price}"></p>
-    <a th:href="@{/modification/{id}(id=${id})}">수정하기</a>
-    <br/>
-    <button id="deleteBtn">삭제</button>
+    가격: <span th:text="${price}"></span><br/>
+    판매자명 : <span th:text="${username}"></span><br/><br/>
+
+    <div th:if="${#authentication.principal.username == username}">
+        <a th:href="@{'/modification/' + ${id}}">수정하기</a>
+        <br/>
+        <button id="deleteBtn">삭제</button>
+    </div>
+
+</div>
 </div>
 
 <script th:inline="javascript">  //html 파일 로드시 1회 실행
@@ -33,7 +39,7 @@ window.onload = function () {
         })
             .then(r => r.text())
             .then(() => {
-                window.location.href="/list";
+                window.location.href = "/list";
             })
     });
 };

@@ -2,6 +2,7 @@ package com.nayo.shop;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +19,7 @@ public class ItemController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        System.out.println("실행 전");
         List<Item> result = itemService.findAll();
-        System.out.println("실행 후"+result.size());
         model.addAttribute("items", result);
         return "list.html";
     }
@@ -37,8 +36,8 @@ public class ItemController {
     /* 데이터가 얼마 없다면?
     public String item(@RequestParam String title) {} //보낸 인자를 내가 정한 타입으로 선택 가능
     */
-    public String item(@ModelAttribute Item item) { //<input>데이터들을 바로 object로 변환
-        itemService.saveItem(item);
+    public String item(@ModelAttribute ItemDTO itemDTO, Authentication auth) { //<input>데이터들을 바로 object로 변환
+        itemService.saveItem(itemDTO, auth);
         return "redirect:/list"; //특정페이지로 돌아가게 만들 수 있음
     }
 
@@ -51,6 +50,8 @@ public class ItemController {
             model.addAttribute("id", result.get().getId());
             model.addAttribute("title", result.get().getTitle());
             model.addAttribute("price", result.get().getPrice());
+            model.addAttribute("username" , result.get().getUsername());
+            System.out.println(result.get());
             return "detail.html";
         } else {
             return "redirect:/list";
@@ -64,6 +65,7 @@ public class ItemController {
             model.addAttribute("id", result.get().getId());
             model.addAttribute("title", result.get().getTitle());
             model.addAttribute("price", result.get().getPrice());
+            model.addAttribute("username" , result.get().getUsername());
             return "modification.html";
         }
         else{
@@ -71,9 +73,9 @@ public class ItemController {
         }
     }
 
-    @PutMapping("/modification/{id}")
-    public String modification(@ModelAttribute Item item) {
-        itemService.saveItem(item);
+    @PostMapping("/modification/{id}")
+    public String modification(@ModelAttribute ItemDTO itemDTO, Authentication auth) {
+        itemService.saveItem(itemDTO, auth);
         return "redirect:/list";
     }
 
@@ -89,5 +91,10 @@ public class ItemController {
     public ResponseEntity<String> delete(@PathVariable Integer id) {
         itemService.deleteById(id);
         return ResponseEntity.status(200).body("삭제완료");
+    }
+
+    @GetMapping("/main")
+    public String main(){
+        return "main.html";
     }
 }

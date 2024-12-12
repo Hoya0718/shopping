@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{nav.html::navbar}"></div>
+<h4>마이페이지</h4>
+
+<div sec:authentication="principal"></div><br/> <!-- 유저 정보 가져오기 -->
+<div sec:authentication="principal.username"></div><br/> <!--유저의 아이디 가져오기-->
+<div sec:authorize="hasAuthority('일반유저')"></div><br/> <!--이 권한이 있는 유저에게만 보여준다-->
+<div sec:authorize="isAuthenticated()"></div><br/><!--로그인한 사람만 보여줌-->
+<div sec:authorize="isAnonymous()"></div><br/><!--로그아웃 한 유저만 보여줌-->
+<h4> 이 유저는 일반유저 권한임</h4>
+</body>
+</html>

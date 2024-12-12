@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet"/>
+</head>
+<body>
+<div th:replace="~{nav.html::navbar}"></div>
+<h2>메인페이지 입니다.</h2>
+
+<div sec:authorize="isAuthenticated()">
+    환영합니다 <span sec:authentication="principal.username"></span>님
+</div><!--로그인한 사람만 보여줌-->
+<h4 sec:authorize="isAuthenticated()">당신은 우리 페이지의 모든 권한 중 일부를 사용할 수 있어요 호호</h4>
+
+</body>
+</html>

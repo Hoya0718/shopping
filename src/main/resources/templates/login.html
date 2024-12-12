@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{nav.html::navbar}"/>
+
+    <h4>로그인하세요</h4>
+
+    <div th:if="${param.error}"> <!--현재 url의 query string이 담겨져있다  오른쪽 변수에 뭐 있으면 html 보여주세요-->
+        <h4>아이디나 비번 틀림</h4>
+    </div>
+
+    <form action="/login" method="POST">
+        사용자 아 이 디 : <input type="text" name="username"/><br/>
+        사용자 비밀번호 : <input type="password" name="password"/><br/>
+        <button type="submit">로그인</button>
+    </form>
+
+</body>
+</html>
