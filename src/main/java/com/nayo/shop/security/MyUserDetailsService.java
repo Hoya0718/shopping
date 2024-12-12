@@ -1,7 +1,7 @@
-package com.nayo.shop;
+package com.nayo.shop.security;
 
+import com.nayo.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -1,4 +1,4 @@
-package com.nayo.shop;
+package com.nayo.shop.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

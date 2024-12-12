@@ -1,6 +1,5 @@
-package com.nayo.shop;
+package com.nayo.shop.item;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Data;
 
 @Data

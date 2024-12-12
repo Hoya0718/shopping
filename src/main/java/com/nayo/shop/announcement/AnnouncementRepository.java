@@ -1,4 +1,4 @@
-package com.nayo.shop;
+package com.nayo.shop.announcement;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

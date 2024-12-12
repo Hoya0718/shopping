@@ -1,4 +1,4 @@
-package com.nayo.shop;
+package com.nayo.shop.item;
 
 import lombok.RequiredArgsConstructor;
 
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller

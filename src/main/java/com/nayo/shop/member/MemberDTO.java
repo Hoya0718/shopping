@@ -1,4 +1,4 @@
-package com.nayo.shop;
+package com.nayo.shop.member;
 
 import lombok.Data;
 

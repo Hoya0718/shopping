@@ -1,4 +1,4 @@
-package com.nayo.shop;
+package com.nayo.shop.item;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
