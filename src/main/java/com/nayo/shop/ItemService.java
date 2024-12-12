@@ -1,9 +1,13 @@
 package com.nayo.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,5 +45,11 @@ public class ItemService {
 
     public void deleteById(Integer id){
         itemRepository.deleteById(id);
+    }
+
+    // 페이징 처리된 아이템을 반환
+    public Page<Item> findPagedItems(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size); // page는 0부터 시작
+        return itemRepository.findAll(pageable);
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -19,7 +19,30 @@
   <div>
     <a th:href="@{/detail/{id}(id=${i.id})}"><h4 th:text="${i.title}"></h4></a>
     <p th:text="${i.price}"></p>
-    <p th:text="${i.username}"</p>
+    <p th:text="${i.username}"></p>
+  </div>
+</div>
+
+<hr/>
+
+<div th:if="${totalPages > 1}">
+  <div>
+    <span>Page: </span>
+
+    <!-- Previous Page Link -->
+    <a th:href="@{'/list/page/' + ${currentPage - 1}}"
+       th:if="${currentPage > 1}">
+      Previous
+    </a>
+
+    <!-- Current Page Display -->
+    <span th:text="${currentPage}">1</span>
+
+    <!-- Next Page Link -->
+    <a th:href="@{'/list/page/' + ${currentPage + 1}}"
+       th:if="${currentPage < totalPages}">
+      Next
+    </a>
   </div>
 </div>
 

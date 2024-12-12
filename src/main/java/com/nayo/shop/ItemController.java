@@ -1,9 +1,10 @@
 package com.nayo.shop;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,25 @@ import java.util.Optional;
 public class ItemController {
 
     private final ItemService itemService;
+    private final ItemRepository itemRepository;
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Item> result = itemService.findAll();
-        model.addAttribute("items", result);
+        Page<Item> result = itemService.findPagedItems(0, 6);
+        model.addAttribute("items", result.getContent());
+        model.addAttribute("totalPages", result.getTotalPages());
+        model.addAttribute("currentPage", 1);
+        return "list.html";
+    }
+
+    @GetMapping("/list/page/{abc}")
+    String getListPage(Model model, @PathVariable Integer abc) {
+        int page = abc > 0 ? abc-1:0;
+        int size = 6;
+        Page<Item> result = itemService.findPagedItems(page, size);
+        model.addAttribute("items", result.getContent());
+        model.addAttribute("totalPages", result.getTotalPages());
+        model.addAttribute("currentPage", page+1);
         return "list.html";
     }
 
@@ -97,4 +112,6 @@ public class ItemController {
     public String main(){
         return "main.html";
     }
+
+
 }
