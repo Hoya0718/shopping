@@ -26,6 +26,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/**").permitAll()
         );//특정 페이지 로그인검사 유무 설정 가능
+        http.formLogin((formLogin) -> formLogin.loginPage("/login") //폼으로 로그인 하겠다.
+                .defaultSuccessUrl("/") //로그인 성공시 이동할 url
+                .failureUrl("/fail") //실패 시 이동 할 url null이면 /login?error로 이동
+        );
+        http.logout(logout -> logout.logoutUrl("/logout"));
         return http.build();
     }
 }
