@@ -1,7 +1,6 @@
 package com.nayo.shop.item;
 
-import com.nayo.shop.comment.Comment;
-import com.nayo.shop.comment.CommentRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,26 +24,26 @@ public class ItemService {
     }
 
     //Item 등록시 저장 또는 수정
-    public void saveItem(ItemDTO itemDTO, Authentication auth){
+    public void saveItem(ItemDTO itemDTO, Authentication auth) {
         Item item = new Item();
-        if(itemDTO.getId() != null){
+        if (itemDTO.getId() != null) {
             item.setId(itemDTO.getId());
         }
 
         item.setTitle(itemDTO.getTitle());
         item.setPrice(itemDTO.getPrice());
         item.setUsername(auth.getName());
-        System.out.println("서비스"+ item);
+        System.out.println("서비스" + item);
         itemRepository.save(item);
     }
 
     //Item 상세 정보 불러오기
-    public Optional<Item> findById(Integer id){
+    public Optional<Item> findById(Integer id) {
         Optional<Item> result = itemRepository.findById(id); //Optional : 변수가 비어있을 수도 있고 Item일 수도 있습니다, id가 n인 행 출력
         return result;
     }
 
-    public void deleteById(Integer id){
+    public void deleteById(Integer id) {
         itemRepository.deleteById(id);
     }
 
@@ -54,4 +53,8 @@ public class ItemService {
         return itemRepository.findAll(pageable);
     }
 
+    public List<Item> findByTitleContaining(String title) {
+
+        return itemRepository.findByTitleContaining(title);
+    }
 }
