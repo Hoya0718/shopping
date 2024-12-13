@@ -11,6 +11,9 @@ import java.util.Date;
 
 @Entity
 @ToString
+//jpa에서 index 생성하는 법
+//@Table(indexes = @Index(columnList = "title", name="작명")) title컬럼에 index 생성
+//multi-column index도 가능
 public class Announcement {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
