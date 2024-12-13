@@ -1,5 +1,7 @@
 package com.nayo.shop.item;
 
+import com.nayo.shop.comment.Comment;
+import com.nayo.shop.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,4 +53,5 @@ public class ItemService {
         Pageable pageable = PageRequest.of(page, size); // page는 0부터 시작
         return itemRepository.findAll(pageable);
     }
+
 }

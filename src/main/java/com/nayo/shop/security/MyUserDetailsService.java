@@ -1,5 +1,6 @@
 package com.nayo.shop.security;
 
+import com.nayo.shop.member.CustomUser;
 import com.nayo.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,17 +35,6 @@ public class MyUserDetailsService implements UserDetailsService {
         a.displayName = user.getDisplayName();
         return a;
         //return new User(user.getUsername(), user.getPassword(), authorities); 사용자명 패스워드 권한만 가능 만약 nickname을 추가하고 싶으면??? User()와 비슷한 클래스 생성해야된다.
-    }
-}
-
-class CustomUser extends User{
-    public String displayName;
-    public CustomUser(
-            String username,
-            String password,
-            Collection<? extends GrantedAuthority> authorities
-    ) {
-        super(username, password, authorities);
     }
 }
 /*

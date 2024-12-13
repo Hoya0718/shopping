@@ -1,5 +1,7 @@
 package com.nayo.shop.item;
 
+import com.nayo.shop.comment.Comment;
+import com.nayo.shop.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -16,7 +19,7 @@ import java.util.Optional;
 public class ItemController {
 
     private final ItemService itemService;
-    private final ItemRepository itemRepository;
+    private final CommentService commentService;
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -59,13 +62,16 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model) { //user가 입력한 파라미터의 값을 알 수 있음
         Optional<Item> result = itemService.findById(id);
+        List<Comment> comment = commentService.findAllByItemId(id);
 
         if (result.isPresent()) { //Optional은 if문으로 꼭 해줘야된다. result에 결과가 있을 때
             model.addAttribute("id", id);
             model.addAttribute("title", result.get().getTitle());
             model.addAttribute("price", result.get().getPrice());
             model.addAttribute("username" , result.get().getUsername());
+            model.addAttribute("comments", comment);
             System.out.println(result.get());
+            System.out.println(comment+"전송댓글");
             return "detail.html";
         } else {
             return "redirect:/list";
