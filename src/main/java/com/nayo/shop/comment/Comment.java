@@ -14,6 +14,6 @@ public class Comment {
     private Integer id;
     private String username;
     @Column(length = 1000)
-    private String content;
+    private String comment;
     private Integer itemId;
 }

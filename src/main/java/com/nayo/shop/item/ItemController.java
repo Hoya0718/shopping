@@ -61,7 +61,7 @@ public class ItemController {
         Optional<Item> result = itemService.findById(id);
 
         if (result.isPresent()) { //Optional은 if문으로 꼭 해줘야된다. result에 결과가 있을 때
-            model.addAttribute("id", result.get().getId());
+            model.addAttribute("id", id);
             model.addAttribute("title", result.get().getTitle());
             model.addAttribute("price", result.get().getPrice());
             model.addAttribute("username" , result.get().getUsername());

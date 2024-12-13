@@ -23,6 +23,14 @@
         <button id="deleteBtn">삭제</button>
     </div>
 
+    <br/><br/>
+
+    <form action="/comment" method="POST">
+        <input type="hidden" name="ItemId" th:value="${id}">
+        <input type="text" name="content">
+        <button type="submit">전송</button>
+    </form>
+
 </div>
 </div>
 
