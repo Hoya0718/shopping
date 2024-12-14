@@ -20,7 +20,6 @@ public class ItemController {
 
     private final ItemService itemService;
     private final CommentService commentService;
-    private final ItemRepository itemRepository;
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -124,6 +123,6 @@ public class ItemController {
 
         List<Item> list = itemService.findByTitleContaining(title);
         model.addAttribute("items", list);
-        return "list.html";
+        return "/list.html";
     }
 }

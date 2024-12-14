@@ -13,4 +13,12 @@ public interface ItemRepository extends JpaRepository<Item,Integer> {//<Entity�
     //Slice<Item> findSliceBy(Pageable page); //전체 행 갯수 세는 SQL 코드 실행안함(전체 페이지 갯수 필요없을 때 사용)
 
     List<Item> findByTitleContaining(String title);
+
+    /* JPA에서 쿼리문 작성 법 (파라미터문법 가능)
+    @Query(value = "select * from item here id =?1", nativeQuery = true)
+    Item rawQuery1(3L); -> ID가 3인 아이템 가져와
+
+    @Query(value = "select * from item where match(title) against(?1)" nativaQuery = true)
+    List<Item> rawQuery2(String text);
+    */
 }
