@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 @ToString
 public class Sales {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String itemName;
-    private Integer price;
-    private Integer count;
-    private Integer member_id;
+    private Integer id; //상품 번호
+    private String itemName; //상품명
+    private Integer price; //가격
+    private Integer count; //구매할 개수
+    private Integer member_id; //구매자
     @CreationTimestamp//자동으로
     private LocalDateTime created;
 }

@@ -70,6 +70,7 @@ public class ItemController {
             model.addAttribute("price", result.get().getPrice());
             model.addAttribute("username" , result.get().getUsername());
             model.addAttribute("comments", comment);
+            model.addAttribute("defaultNum",1);
             System.out.println(result.get());
             System.out.println(comment+"전송댓글");
             return "detail.html";

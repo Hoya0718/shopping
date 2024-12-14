@@ -7,6 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="/main.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#decrease').on('click', function () {
+                let currentNum = parseInt($('#countNum').text()) - 1;
+                updateNum(currentNum);
+            });
+
+            $('#increase').on('click', function () {
+                let currentNum = parseInt($('#countNum').text()) + 1;
+                updateNum(currentNum);
+            });
+
+            function updateNum(num) {
+                $.ajax({
+                    url: '/updateNum',
+                    type: 'POST',
+                    data: {num: num}
+                })
+                    .done(function (response) {
+                        $('#countNum').text(response);
+                        console.log(response);
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error('숫자 업데이트 중 오류 발생:', error);
+                    });
+            }
+        });
+    </script>
 </head>
 <body>
 <div th:replace="~{nav.html::navbar}"/>
@@ -23,10 +52,12 @@
         <button id="deleteBtn">삭제</button>
     </div>
     <div>
-        <form action="/sales" method="POST">
-            <input type="text" name="">
-            <button type="submit">구매하기</button>
-        </form>
+        <button id="decrease">-</button>
+        <span id="countNum" th:text="${defaultNum}">1</span>
+        <button id="increase">+</button>
+
+        <br/>
+        <a th:href="@{'/sales/' + ${id}}">구매하기</a>
     </div>
     <br/><br/>
 
