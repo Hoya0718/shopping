@@ -1,6 +1,7 @@
 package com.nayo.shop.sales;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -21,7 +22,24 @@ public class SalesService {
         map.put("updatedNum",num);
         return map;
     }
-    public Optional<Sales> sales(Integer id) {
+    public Integer saveSales(SalesDTO salesDTO, Authentication auth) {
+        Sales sales = new Sales();
+
+        int price = salesDTO.getPrice() * salesDTO.getCount();
+
+        sales.setCount(salesDTO.getCount());
+        sales.setPrice(price);
+        sales.setItemName(salesDTO.getItemName());
+        sales.setMember_id(auth.getName());
+        sales.setSeller(salesDTO.getSeller());
+
+        Sales saveSales = salesRepository.save(sales);
+
+        Integer id = saveSales.getId();
+        return id;
+    }
+    public Optional<Sales> findById(Integer id){
+        System.out.println("찾을 아이템 id");
         return salesRepository.findById(id);
     }
 }

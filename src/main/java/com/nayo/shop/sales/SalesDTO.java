@@ -4,5 +4,9 @@ import lombok.Data;
 
 @Data
 public class SalesDTO {
-    private Integer id;
+
+    private String itemName;
+    private Integer count;
+    private Integer price;
+    private String seller;
 }

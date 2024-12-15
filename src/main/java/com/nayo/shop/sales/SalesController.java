@@ -3,13 +3,13 @@ package com.nayo.shop.sales;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -24,20 +24,20 @@ public class SalesController {
     public ResponseEntity<Integer> updateNum(@RequestParam Integer num) {
 
         Map<String, Integer> map = salesService.updateNum(num);
-        System.out.println(map+"과연 뭐가 나올까 ㅋㅋ");
         return ResponseEntity.ok(map.get("updatedNum"));
     }
 
-    @GetMapping("/sales/{id}")
-    public String sales(@PathVariable Integer id, Model model) {
-
-        Optional<Sales> result = salesService.sales(id);
-        if(result.isPresent()) {
-            model.addAttribute("sales", result.get());
-            return "sales.html";
-        }
-        else {
-            return "redirect:/detail/" + id ;
-        }
+    @GetMapping("/sales")
+    public String sales(@RequestParam Integer id, Model model) {
+        Optional<Sales> result = salesService.findById(id);
+        System.out.println(result+"최종 결과");
+        model.addAttribute("sales", result.get());
+        return "sales.html";
+    }
+    @PostMapping("/item/sales")
+    public String sales(@ModelAttribute SalesDTO salesDTO, RedirectAttributes redirectAttributes, Authentication auth){
+        Integer id = salesService.saveSales(salesDTO, auth);
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/sales";
     }
 }

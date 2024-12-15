@@ -19,7 +19,8 @@ public class Sales {
     private String itemName; //상품명
     private Integer price; //가격
     private Integer count; //구매할 개수
-    private Integer member_id; //구매자
+    private String member_id; //구매자
+    private String seller; //판매자
     @CreationTimestamp//자동으로
     private LocalDateTime created;
 }

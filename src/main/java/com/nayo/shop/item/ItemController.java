@@ -71,8 +71,7 @@ public class ItemController {
             model.addAttribute("username" , result.get().getUsername());
             model.addAttribute("comments", comment);
             model.addAttribute("defaultNum",1);
-            System.out.println(result.get());
-            System.out.println(comment+"전송댓글");
+
             return "detail.html";
         } else {
             return "redirect:/list";

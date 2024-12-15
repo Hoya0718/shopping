@@ -28,12 +28,18 @@
                 })
                     .done(function (response) {
                         $('#countNum').text(response);
-                        console.log(response);
+                        $('#countInput').val(response);
                     })
                     .fail(function (xhr, status, error) {
                         console.error('숫자 업데이트 중 오류 발생:', error);
                     });
             }
+
+            // 폼 제출 시 #countInput 값을 다시 업데이트하여 제출
+            $('form').on('submit', function () {
+                let currentNum = $('#countNum').text();
+                $('#countInput').val(currentNum);
+            });
         });
     </script>
 </head>
@@ -57,7 +63,14 @@
         <button id="increase">+</button>
 
         <br/>
-        <a th:href="@{'/sales/' + ${id}}">구매하기</a>
+        <form action="/item/sales" method="POST">
+            <input type="hidden" name="id" th:value="${id}"/>
+            <input type="hidden" name="seller" th:value="${username}"/>
+            <input type="hidden" name="itemName" th:value="${title}"/>
+            <input type="hidden" name="count" id="countInput"/>
+            <input type="hidden" name="price" th:value="${price}"/>
+            <button type="submit">구매하기</button>
+        </form>
     </div>
     <br/><br/>
 

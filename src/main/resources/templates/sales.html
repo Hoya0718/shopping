@@ -9,5 +9,10 @@
 </head>
 <body>
     <h2>Sales</h2>
+
+    상품명 : <span th:text="${sales.itemName}"></span>
+    구매 개수 : <span th:text="${sales.count}"></span>
+    판매자명 : <span th:text="${sales.seller}"></span>
+    결제 가격 : <span th:text="${sales.price}"></span>
 </body>
 </html>
