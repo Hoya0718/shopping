@@ -1,10 +1,13 @@
 package com.nayo.shop.sales;
 
+import com.nayo.shop.member.CustomUser;
+import com.nayo.shop.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,7 +33,10 @@ public class SalesService {
         sales.setCount(salesDTO.getCount());
         sales.setPrice(price);
         sales.setItemName(salesDTO.getItemName());
-        sales.setMember_id(auth.getName());
+        CustomUser user = (CustomUser) auth.getPrincipal();
+        var member = new Member();
+        member.setId(user.id);
+        sales.setMember(member);
         sales.setSeller(salesDTO.getSeller());
 
         Sales saveSales = salesRepository.save(sales);
@@ -39,7 +45,10 @@ public class SalesService {
         return id;
     }
     public Optional<Sales> findById(Integer id){
-        System.out.println("찾을 아이템 id");
         return salesRepository.findById(id);
+    }
+    public List<Sales> customFindAll(){
+
+        return salesRepository.customFindAll();
     }
 }
