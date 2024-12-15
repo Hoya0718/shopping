@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
-    //db에서 유저 아이디를 가져와 해당 유저의 아이디 비번 권한을 주세요
+    //db에서 유저 아이디를 가져와 해당 유저의 아이디 비번 권한을 주세요 + 추가적으로 nickname, id가져옴
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         var result = memberRepository.findByUsername(username);
@@ -33,6 +33,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
         var a = new CustomUser(user.getUsername(), user.getPassword(), authorities);
         a.displayName = user.getDisplayName();
+        a.id = user.getId();
         return a;
         //return new User(user.getUsername(), user.getPassword(), authorities); 사용자명 패스워드 권한만 가능 만약 nickname을 추가하고 싶으면??? User()와 비슷한 클래스 생성해야된다.
     }
