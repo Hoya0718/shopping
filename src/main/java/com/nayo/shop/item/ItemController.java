@@ -35,9 +35,11 @@ public class ItemController {
         int page = abc > 0 ? abc-1:0;
         int size = 6;
         Page<Item> result = itemService.findPagedItems(page, size);
+
         model.addAttribute("items", result.getContent());
         model.addAttribute("totalPages", result.getTotalPages());
         model.addAttribute("currentPage", page+1);
+
         return "list.html";
     }
 
@@ -71,6 +73,7 @@ public class ItemController {
             model.addAttribute("username" , result.get().getUsername());
             model.addAttribute("comments", comment);
             model.addAttribute("defaultNum",1);
+            model.addAttribute("images", result.get().getImages().get(0).getImage_url());
 
             return "detail.html";
         } else {

@@ -60,3 +60,14 @@ a {
     text-decoration: none;
     color : black;
 }
+.listArray{
+    border: 1px solid white;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap : 10px;
+}
+.pageCss{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

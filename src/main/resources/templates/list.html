@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link href="/main.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/main.css" rel="stylesheet">
 
 </head>
 <body>
 <div th:replace="~{nav.html::navbar}"/>
-  <h1>list페이지</h1>
+<h1>list페이지</h1>
 <!-- items가 비어 있지 않으면 카드 표시 -->
 <div th:if="${#lists.isEmpty(items)}">
-  <p>No items available</p>
+    <p>No items available</p>
 </div>
 
 <form action="/search" method="GET">
-  <input type="text" name="title">
-  <button type="submit">검색</button>
+    <input type="text" name="title">
+    <button type="submit">검색</button>
 </form>
-
-<div class="card" th:each="i : ${items}">
-  <img src="https://placehold.co/300">
-  <div>
-    <a th:href="@{/detail/{id}(id=${i.id})}"><h4 th:text="${i.title}"></h4></a>
-    <p th:text="${i.price}"></p>
-    <p th:text="${i.username}"></p>
-  </div>
+<div class="listArray">
+    <div class="card" th:each="i : ${items}">
+        <img th:src="${i.images.isEmpty() ? 'https://placehold.co/300' : i.images[0].image_url}">
+        <div>
+            <a th:href="@{/detail/{id}(id=${i.id})}"><h4 th:text="${i.title}"></h4></a>
+            <span th:text="${i.price}"></span>원<br/>
+            판매자 : <span th:text="${i.username}"></span>
+        </div>
+    </div>
 </div>
-
 <hr/>
 
-<div th:if="${totalPages > 1}">
-  <div>
-    <span>Page: </span>
+<div class="pageCss" th:if="${totalPages > 1}">
+    <div>
+        <span>Page: </span>
 
-    <!-- Previous Page Link -->
-    <a th:href="@{'/list/page/' + ${currentPage - 1}}"
-       th:if="${currentPage > 1}">
-      Previous
-    </a>
+        <!-- Previous Page Link -->
+        <a th:href="@{'/list/page/' + ${currentPage - 1}}"
+           th:if="${currentPage > 1}">
+            Previous
+        </a>
 
-    <!-- Current Page Display -->
-    <span th:text="${currentPage}">1</span>
+        <!-- Current Page Display -->
+        <span th:text="${currentPage}">1</span>
 
-    <!-- Next Page Link -->
-    <a th:href="@{'/list/page/' + ${currentPage + 1}}"
-       th:if="${currentPage < totalPages}">
-      Next
-    </a>
-  </div>
+        <!-- Next Page Link -->
+        <a th:href="@{'/list/page/' + ${currentPage + 1}}"
+           th:if="${currentPage < totalPages}">
+            Next
+        </a>
+    </div>
 </div>
 
 <!--

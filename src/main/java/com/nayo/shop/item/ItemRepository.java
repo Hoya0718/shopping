@@ -3,8 +3,10 @@ package com.nayo.shop.item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item,Integer> {//<Entity명, id컬럼타입>
     Page<Item> findPageBy(Pageable page); //pagination하는 방법
@@ -21,4 +23,9 @@ public interface ItemRepository extends JpaRepository<Item,Integer> {//<Entity�
     @Query(value = "select * from item where match(title) against(?1)" nativaQuery = true)
     List<Item> rawQuery2(String text);
     */
+    @Query("SELECT i from Item i Left Join fetch i.images where i.id = :id")
+    Optional<Item> findByIdWithImages(Integer id);
+
+    @Query("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.images")
+    Page<Item> findAllWithImages(Pageable pageable);
 }
