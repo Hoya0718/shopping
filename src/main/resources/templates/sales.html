@@ -9,11 +9,11 @@
 </head>
 <body>
     <h2>Sales</h2>
-
-    상품명 : <span th:text="${sales.itemName}"></span><br/>
-    구매 개수 : <span th:text="${sales.count}"></span><br/>
-    판매자명 : <span th:text="${sales.seller}"></span><br/>
-    결제 가격 : <span th:text="${sales.price}"></span><br/>
+    <div th:each = " i: ${sales} "
+    상품명 : <span th:text="${i.itemName}"></span><br/>
+    구매 개수 : <span th:text="${i.count}"></span><br/>
+    판매자명 : <span th:text="${i.seller}"></span><br/>
+    결제 가격 : <span th:text="${i.price}"></span><br/>
 
     <a href="/main">홈으로</a>
 </body>

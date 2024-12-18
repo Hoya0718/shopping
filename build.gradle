@@ -30,6 +30,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-security' //스프링 시큐리티
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE' //타임리프 스프링 시큐리티
+	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.12'    /* thumbnailator */
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+	implementation 'io.jsonwebtoken:jjwt-gson:0.12.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.5'
 }
 
 tasks.named('test') {

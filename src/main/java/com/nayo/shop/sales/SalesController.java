@@ -45,12 +45,14 @@ public class SalesController {
     }
 
     @GetMapping("/order/all")
-    String getOrderAll() {
+    String getOrderAll(Model model) {
         List<Sales> result = salesService.customFindAll();
         System.out.println(result);
         var result2 = memberRepository.findById(1);
         System.out.println(result2.get());
-        return "sales.html";
+
+        model.addAttribute("sales", result);
+        return "/sales.html";
     }
 
 

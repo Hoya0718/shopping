@@ -1,12 +1,15 @@
 package com.nayo.shop.config;
 
+import com.nayo.shop.member.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 
 //스프링 시큐리티 설정
 
@@ -23,14 +26,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable()); //다른 사이트에서 form action="내사이트.com/write 해서"api 요청 가능 -> csrf공격이라고한다. 만약 실행시 내 사이트의 form의 value에 서버에서 랜덤한 문자 만든다. 서버랑 비교 후 확인
+
+        http.addFilterBefore(new JwtFilter(), ExceptionTranslationFilter.class);
+
         http.authorizeHttpRequests((authorize) ->
                 authorize.anyRequest().permitAll()
         );//특정 페이지 로그인검사 유무 설정 가능
+        //세션 데이터를 생성하지 마세요
+        http.sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        /*
         http.formLogin((formLogin) -> formLogin
                 .loginPage("/login") //폼으로 로그인 하겠다.
                 .defaultSuccessUrl("/main", true) //로그인 성공시 이동할 url
                 .failureUrl("/fail") //실패 시 이동 할 url null이면 /login?error로 이동
         );
+        */
+
         http.logout(logout -> logout.logoutUrl("/logout")
                 .logoutSuccessUrl("/") //로그아웃 성공 후 리다이렉트
                 .invalidateHttpSession(true) //세션 무효화
