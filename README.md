@@ -14,5 +14,4 @@
   Thymeleaf
   
 ### 개발 진행중
-session to jwt
-
+Thumnail을 이용한 이미지 리사이징
