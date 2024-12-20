@@ -9,10 +9,29 @@
     <link href="/main.css" rel="stylesheet">
 </head>
 <body>
-    <h4>로그인 밑에 클릭</h4>
-    <a href="/login">->로그인 하러가기<-</a>
-    <h4>회원가입 밑에 클릭</h4>
-    <a href="/register">->회원가입 하러가기<-</a>
-
+<h4>로그인 밑에 클릭</h4>
+<a href="/login">->로그인 하러가기<-</a>
+<h4>회원가입 밑에 클릭</h4>
+<a href="/register">->회원가입 하러가기<-</a>
+<hr/>
+<button id="generateThumbnailsBtn" type="button">썸네일 생성하러가기</button>
+<script>
+    document.getElementById('generateThumbnailsBtn').addEventListener('click', function () {
+        fetch('/generate-thumbnails', {  // 서버의 /generate-thumbnails 경로로 요청
+            method: 'GET',  // GET 방식 요청
+            headers: {
+                'Content-Type': 'application/json'  // 요청 데이터 타입
+            }
+        })
+            .then(response => response.text())  // 서버에서 반환된 메시지 처리
+            .then(data => {
+                alert(data);  // 서버에서 받은 메시지 표시 (성공 또는 실패 메시지)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 실패');
+            });
+    });
+</script>
 </body>
 </html>
